@@ -4,9 +4,11 @@ import com.temperature.temperature.domain.entityes.CondicaoClimatica;
 
 public record getCondicaoClimaticaDTO(String data,
                                       Double temperatura,
-                                      Integer luminosidade){
+                                      Integer luminosidade,
+                                      Double umidade,
+                                      Double indiceDeCalor){
 
     public getCondicaoClimaticaDTO(CondicaoClimatica data) {
-        this(data.getData(), data.getTemperatura(), data.getLuminosidade());
+        this(data.getData(), data.getTemperatura(), data.getLuminosidade(), data.getUmidade(), data.getIndiceDeCalor());
     }
 }

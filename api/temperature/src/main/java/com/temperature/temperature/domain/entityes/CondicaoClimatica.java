@@ -13,6 +13,8 @@ public class CondicaoClimatica {
     private String data;
     private Double temperatura;
     private Integer luminosidade;
+    private Double umidade;
+    private Double indiceDeCalor;
 
     public CondicaoClimatica() {}
 
@@ -20,6 +22,14 @@ public class CondicaoClimatica {
         this.data = String.valueOf(LocalDateTime.now()).substring(0,19).replace("T", " ");
         this.temperatura = data.temperatura();
         this.luminosidade = data.luminosidade();
+        this.umidade = data.umidade();
+        this.indiceDeCalor = calculaIndiceDeCalor(this.temperatura, this.umidade);
+    }
+
+    public double calculaIndiceDeCalor(double t, double u) {
+        double tempF = (t * 9/5) + 32;
+        double hi = 1.1 * tempF - 10.3 + 0.047 * u;
+        return Math.round((hi - 32) * 5/9);
     }
 
     public String getData() {
@@ -45,4 +55,22 @@ public class CondicaoClimatica {
     public void setLuminosidade(Integer luminosidade) {
         this.luminosidade = luminosidade;
     }
+
+    public Double getUmidade() {
+        return umidade;
+    }
+
+    public void setUmidade(Double umidade) {
+        this.umidade = umidade;
+    }
+
+    public Double getIndiceDeCalor() {
+        return indiceDeCalor;
+    }
+
+    public void setIndiceDeCalor(Double indiceDeCalor) {
+        this.indiceDeCalor = indiceDeCalor;
+    }
 }
+
+
