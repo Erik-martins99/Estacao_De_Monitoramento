@@ -15,7 +15,6 @@
 const int pinLuz = 32;  
 const int pinTemp = 35;
 const int pinUmid = 33;
-const int pinGas = 34;
 const int pinSound = 15;
 
 const char *ssid = "M201";
@@ -84,7 +83,7 @@ void get_api() {
   }
 }
 
-void post_api(double temperatura, int luminosidade, double umidade, int som, double gas) {
+void post_api(double temperatura, int luminosidade, double umidade, int som) {
   if (WiFi.status() == WL_CONNECTED) { 
     HTTPClient http;
     http.begin(apiUrl); // Inicia a conexão com a URL
@@ -93,12 +92,7 @@ void post_api(double temperatura, int luminosidade, double umidade, int som, dou
     http.addHeader("Content-Type", "application/json");
 
     // Dados a serem enviados no corpo da requisição
-    // Dados a serem enviados no corpo da requisição
-    String postData = "{\"temperatura\":" + String(temperatura, 2) + 
-                      ", \"luminosidade\":" + String(luminosidade) + 
-                      ", \"umidade\":" + String(umidade, 2) + 
-                      ", \"som\":" + String(som) + 
-                      ", \"gas\":" + String(gas, 2) + "}";
+    String postData = "{\"temperatura\":" + String(temperatura, 2) + ", \"luminosidade\":" + String(luminosidade) + ", \"umidade\":" + String(umidade) + + ", \"som\":" + String(som) + "}";
 
     int httpCode = http.POST(postData);
 
@@ -119,7 +113,7 @@ double getTemperatureCelsius(int adcValue) {
   double Vout = (adcValue / ADC_RESOLUTION) * V_REF;
   double R_ntc = R_FIXED * (V_REF / Vout - 1);
   double tempK = 1 / (1 / T0 + (1 / BETA) * log(R_ntc / R0));
-  double tempC = tempK - 283.15;
+  double tempC = tempK - 273.15;
   
   return tempC;
 }
@@ -147,12 +141,6 @@ int getSound() {
   return 0;
 }
 
-double getGasPercent(){
-  int value = analogRead(pinGas);
-  double valuePercent = (double)value / 4096 * 100;  // Multiplica por 100 para converter em porcentagem
-  return valuePercent;
-}
-
 void loop() {
   
   // Recebendo o valor analogicos dos sensores
@@ -163,7 +151,7 @@ void loop() {
   ST_conection();
 
   // Post
-  post_api(getTemperatureCelsius(tempValue), getPercentLight(luzValue), getPercentHumidity(), getSound(), getGasPercent());
+  post_api(getTemperatureCelsius(tempValue), getPercentLight(luzValue), getPercentHumidity(), getSound());
 
   // GET (findAll da API)
   get_api();

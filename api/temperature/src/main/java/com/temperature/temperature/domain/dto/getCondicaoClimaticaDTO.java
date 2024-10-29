@@ -6,9 +6,15 @@ public record getCondicaoClimaticaDTO(String data,
                                       Double temperatura,
                                       Integer luminosidade,
                                       Double umidade,
-                                      Double indiceDeCalor){
+                                      Double indiceDeCalor,
+                                      int som){
 
     public getCondicaoClimaticaDTO(CondicaoClimatica data) {
-        this(data.getData(), data.getTemperatura(), data.getLuminosidade(), data.getUmidade(), data.getIndiceDeCalor());
+        this(data.getData(),
+                data.getTemperatura(),
+                data.getLuminosidade(),
+                data.getUmidade(),
+                data.getIndiceDeCalor(),
+                data.getSom());
     }
 }

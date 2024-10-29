@@ -15,6 +15,8 @@ public class CondicaoClimatica {
     private Integer luminosidade;
     private Double umidade;
     private Double indiceDeCalor;
+    private Integer som;
+    private Double gas;
 
     public CondicaoClimatica() {}
 
@@ -23,6 +25,8 @@ public class CondicaoClimatica {
         this.temperatura = data.temperatura();
         this.luminosidade = data.luminosidade();
         this.umidade = data.umidade();
+        this.som = data.som();
+        this.gas = data.gas();
         this.indiceDeCalor = calculaIndiceDeCalor(this.temperatura, this.umidade);
     }
 
@@ -70,6 +74,22 @@ public class CondicaoClimatica {
 
     public void setIndiceDeCalor(Double indiceDeCalor) {
         this.indiceDeCalor = indiceDeCalor;
+    }
+
+    public int getSom() {
+        return som;
+    }
+
+    public void setSom(int som) {
+        this.som = som;
+    }
+
+    public Double getGas() {
+        return gas;
+    }
+
+    public void setGas(Double gas) {
+        this.gas = gas;
     }
 }
 
