@@ -7,7 +7,8 @@ public record getCondicaoClimaticaDTO(String data,
                                       Integer luminosidade,
                                       Double umidade,
                                       Double indiceDeCalor,
-                                      int som){
+                                      int som,
+                                      Double gas){
 
     public getCondicaoClimaticaDTO(CondicaoClimatica data) {
         this(data.getData(),
@@ -15,6 +16,7 @@ public record getCondicaoClimaticaDTO(String data,
                 data.getLuminosidade(),
                 data.getUmidade(),
                 data.getIndiceDeCalor(),
-                data.getSom());
+                data.getSom(),
+                data.getGas());
     }
 }
